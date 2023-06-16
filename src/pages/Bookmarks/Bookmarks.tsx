@@ -1,7 +1,13 @@
-import React from 'react'
+import  { useEffect, useState } from "react";
+import { getAllBookmarks } from "../../lib/localStorage";
+import Repo from "../../models/repo";
 
 export default function Bookmarks() {
-  return (
-    <div>Bookmarks</div>
-  )
+  const [bookmarks, setBookmarks] = useState<Repo[]>([]);
+
+  useEffect(() => {
+    setBookmarks(getAllBookmarks());
+  }, []);
+
+  return <div>Bookmarks</div>;
 }

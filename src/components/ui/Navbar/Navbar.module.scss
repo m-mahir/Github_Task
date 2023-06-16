@@ -1,10 +1,12 @@
+@use '../../../theme/colors' as *;
+
 .navbar {
     list-style-type: none;
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
-    background-color: #333;
+    background-color: $primary_color;
     li {
         height: 3rem;
         padding: 0 1rem;
