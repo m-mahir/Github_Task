@@ -1,0 +1,17 @@
+.link { 
+    text-decoration: none; 
+    color: white;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 10px;
+    
+    &.active {
+        background-color: #555;
+    }
+
+    &:hover {
+        background-color: #777;
+    }
+}
