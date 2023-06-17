@@ -1,18 +1,33 @@
-import { Routes, Route } from "react-router-dom";
-import Navbar from "../components/ui/Navbar";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Repos from "./Repos";
 import ReposContextProvider from "../context/repo-context";
-import Bookmarks from "./Bookmarks";
+import { Suspense, lazy } from "react";
+import Navbar from "../components/Layout/Navbar";
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorFallback from "../components/ErrorFallback";
+import Loader from "../components/Layout/Loader";
+import styles from "../styles/general/Global.module.scss";
+
+const Bookmarks = lazy(() => import("./Bookmarks"));
 
 export default function Home() {
+  const navigate = useNavigate();
+
   return (
-    <div>
+    <div className={styles.app}>
       <Navbar />
       <ReposContextProvider>
-        <Routes>
-          <Route path="/" element={<Repos />} />
-          <Route path="/bookmarks" element={<Bookmarks />} />
-        </Routes>
+        <ErrorBoundary
+          FallbackComponent={ErrorFallback}
+          onReset={() => navigate("/")}
+        >
+          <Suspense fallback={<Loader />}>
+            <Routes>
+              <Route path="/" element={<Repos />} />
+              <Route path="/bookmarks" element={<Bookmarks />} />
+            </Routes>
+          </Suspense>
+        </ErrorBoundary>
       </ReposContextProvider>
     </div>
   );

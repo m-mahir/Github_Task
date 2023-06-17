@@ -1,0 +1,31 @@
+@use '../theme/colors' as *;
+
+.navbar {
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    background-color: $primary_color;
+
+    .title {
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        color: white;
+        font-weight: bold;
+    }
+
+    .links {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: row;
+    }
+
+    li {
+        height: 3rem;
+        padding: 0 1rem;
+        cursor: pointer;
+        font-weight: bold;
+    }
+}

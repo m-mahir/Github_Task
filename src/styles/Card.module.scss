@@ -1,0 +1,62 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #fff !important;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    width: 400px;
+    position: relative;
+    border-radius: 15px;
+    padding: 1rem 1.5rem;
+    overflow: hidden;
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 10px;
+        
+        .title {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .owner {
+            color: #6e6e6e;
+            display: flex;
+            align-items: center;
+            text-align: end;
+        }
+    }
+
+    .footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+
+        .rate {
+            display: flex;
+            align-items: center;
+        }
+
+        .bookmark {
+            cursor: pointer;
+        }
+    }
+
+    .icon {
+        margin-left: 5px;
+    }
+}
+
+@media only screen and (max-width: 960px) {
+    .card {
+        width: 400px;
+    }
+}
+
+  @media only screen and (max-width: 520px) {
+    .card {
+        width: 250px;
+    }
+}

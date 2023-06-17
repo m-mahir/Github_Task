@@ -3,7 +3,7 @@ export default class Repo {
   name: string;
   owner: string;
   description: string;
-  starsCount: number;
+  starsCount: string;
   isBookmarked: boolean;
 
   constructor(
@@ -11,7 +11,7 @@ export default class Repo {
     name: string,
     owner: string,
     description: string,
-    numberOfStars: number,
+    numberOfStars: string,
     isBookmarked: boolean
   ) {
     this.id = id;

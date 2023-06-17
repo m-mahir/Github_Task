@@ -1,0 +1,5 @@
+@use '../theme/colors' as *;
+
+body {
+    background-color: $bg_color;
+}

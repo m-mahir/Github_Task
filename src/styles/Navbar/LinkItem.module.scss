@@ -1,4 +1,4 @@
-@use '../../../theme/colors' as *;
+@use '../theme/colors' as *;
 
 .link { 
     text-decoration: none; 
@@ -10,10 +10,10 @@
     padding: 0 10px;
     
     &.active {
-        background-color: $primary_color_light;
+        color: $primary_color_light;
     }
 
     &:hover {
-        background-color: $primary_color_dark;
+        color: $primary_color_dark;
     }
 }
