@@ -1,17 +1,19 @@
 import { Routes, Route } from "react-router-dom";
-import Repos from "./Repos/Repos";
-import Bookmarks from "./Bookmarks/Bookmarks";
 import Navbar from "../components/ui/Navbar";
+import Repos from "./Repos";
+import ReposContextProvider from "../context/repo-context";
+import Bookmarks from "./Bookmarks";
 
 export default function Home() {
   return (
     <div>
       <Navbar />
-
-      <Routes>
-        <Route path="/" element={<Repos />} />
-        <Route path="/bookmarks" element={<Bookmarks />} />
-      </Routes>
+      <ReposContextProvider>
+        <Routes>
+          <Route path="/" element={<Repos />} />
+          <Route path="/bookmarks" element={<Bookmarks />} />
+        </Routes>
+      </ReposContextProvider>
     </div>
   );
 }

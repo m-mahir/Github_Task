@@ -3,6 +3,7 @@ import Repo from "../models/repo";
 const BOOKMARKS_KEY = "Bookmarks";
 
 export const addToLocalStorage = (repo: Repo) => {
+  repo.isBookmarked = true;
   let bookmarksStr = localStorage.getItem(BOOKMARKS_KEY);
   let bookmarks: Repo[] = bookmarksStr ? JSON.parse(bookmarksStr) : [];
   bookmarks.push(repo);
