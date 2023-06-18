@@ -1,6 +1,6 @@
 import { useContext, useEffect, useCallback } from "react";
 import { getAllBookmarks } from "../middleware/localStorage";
-import { ReposContext } from "../context/repo-context";
+import { ReposContext } from "../store/repo-context";
 import { PAGE_SIZE } from "../services/constants";
 import List from "../components/Repos/List";
 import EmptyResult from "../components/Repos/EmptyResult";
@@ -14,9 +14,9 @@ export default function Bookmarks() {
     const endIndex = startIndex + PAGE_SIZE;
     reposCtx.populateRepos(
       bookmarks.slice(startIndex, endIndex),
-      bookmarks.length
+      bookmarks.length,
+      currentPage
     );
-    reposCtx.setCurrentPage(currentPage);
   }, []);
 
   useEffect(() => {

@@ -11,9 +11,8 @@ type RepoContextType = {
   repos: Repo[];
   numberOfRepos: number;
   currentPage: number;
-  populateRepos: (repos: Repo[], totalPages: number) => void;
+  populateRepos: (repos: Repo[], totalPages: number, page: number) => void;
   favouriteRepo: (id: number, isFavourite: boolean) => void;
-  setCurrentPage: (pageNum: number) => void;
 };
 
 type Props = {
@@ -24,9 +23,8 @@ export const ReposContext = createContext<RepoContextType>({
   repos: [],
   numberOfRepos: 0,
   currentPage: 0,
-  populateRepos: (repos: Repo[], totalPages: number) => {},
+  populateRepos: (repos: Repo[], totalPages: number, page: number) => {},
   favouriteRepo: (id: number, isFavourite: boolean) => {},
-  setCurrentPage: (pageNum: number) => {},
 });
 
 const ReposContextProvider = ({ children }: Props) => {
@@ -36,9 +34,10 @@ const ReposContextProvider = ({ children }: Props) => {
 
   const location = useLocation();
 
-  const populateRepos = (repos: Repo[], reposCount: number) => {
+  const populateRepos = (repos: Repo[], reposCount: number, page: number) => {
     setRepos(repos);
     setNumberOfRepos(Math.min(reposCount, API_RESULTS_LIMIT));
+    setCurrentPage(page);
   };
 
   const toogleBookmark = (id: number) => {
@@ -68,7 +67,6 @@ const ReposContextProvider = ({ children }: Props) => {
     currentPage,
     populateRepos,
     favouriteRepo,
-    setCurrentPage,
   };
 
   return (

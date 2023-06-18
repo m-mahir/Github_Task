@@ -4,8 +4,9 @@ import Repo from "../../models/Repo";
 import styles from "../../styles/Card.module.scss";
 import { IconContext } from "react-icons/lib";
 import { FaRegStar, FaStar } from "react-icons/fa";
-import { ReposContext } from "../../context/repo-context";
+import { ReposContext } from "../../store/repo-context";
 import { PAGE_SIZE } from "../../services/constants";
+import { useLocation } from "react-router-dom";
 
 type Props = {
   repo: Repo;
@@ -14,6 +15,21 @@ type Props = {
 
 export default function Card({ repo, onPageChange }: Props) {
   const reposCtx = useContext(ReposContext)!;
+
+  const location = useLocation();
+
+  const unfavouriteRepo = () => {
+    reposCtx.favouriteRepo(repo.id, false);
+    if (location.pathname === "/bookmarks") {
+      if (
+        reposCtx.currentPage ===
+          Math.ceil(reposCtx.numberOfRepos / PAGE_SIZE) &&
+        reposCtx.numberOfRepos % PAGE_SIZE === 1
+      )
+        onPageChange(reposCtx.currentPage - 1);
+      else onPageChange(reposCtx.currentPage);
+    }
+  };
 
   return (
     <div className={styles.card}>
@@ -38,18 +54,7 @@ export default function Card({ repo, onPageChange }: Props) {
             }}
           >
             {repo.isBookmarked ? (
-              <FaStar
-                onClick={() => {
-                  reposCtx.favouriteRepo(repo.id, false);
-                  if (
-                    reposCtx.currentPage ===
-                      Math.ceil(reposCtx.numberOfRepos / PAGE_SIZE) &&
-                    reposCtx.numberOfRepos % PAGE_SIZE === 1
-                  )
-                    onPageChange(reposCtx.currentPage - 1);
-                  else onPageChange(reposCtx.currentPage);
-                }}
-              />
+              <FaStar onClick={unfavouriteRepo} />
             ) : (
               <FaRegStar
                 onClick={() => reposCtx.favouriteRepo(repo.id, true)}

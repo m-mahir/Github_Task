@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useContext, useCallback } from "react";
 import { get } from "../middleware/octokit";
 import Repo from "../models/Repo";
 import { checkIsBookmarked } from "../middleware/localStorage";
-import { ReposContext } from "../context/repo-context";
+import { ReposContext } from "../store/repo-context";
 import styles from "../styles/Repos.module.scss";
 import { FaSearch } from "react-icons/fa";
 import { IoCloseCircle } from "react-icons/io5";
@@ -26,49 +26,52 @@ export default function Repos() {
 
   const debouncedSearchQuery = useDebounce(searchQuery, 500);
 
-  const fetchRepos = useCallback(async (currentPage: number) => {
-    if (debouncedSearchQuery) {
-      if (abortController.current) abortController.current.abort();
-      abortController.current = new AbortController();
-      try {
-        setIsLoading(true);
+  const fetchRepos = useCallback(
+    async (currentPage: number) => {
+      if (debouncedSearchQuery) {
+        if (abortController.current) abortController.current.abort();
+        abortController.current = new AbortController();
+        try {
+          setIsLoading(true);
 
-        const reposResult = await get(
-          "/search/repositories",
-          {
-            q: searchQuery,
-            per_page: PAGE_SIZE,
-            page: currentPage,
-          },
-          abortController.current!
-        );
-        if (reposResult && reposResult!.data) {
-          let reposList = reposResult!.data.items.map(
-            (repo: any) =>
-              new Repo(
-                repo.id,
-                repo.name,
-                repo.owner?.login || "",
-                repo.description || "",
-                addCommas(repo.stargazers_count),
-                !!checkIsBookmarked(repo.id)
-              )
+          const reposResult = await get(
+            "/search/repositories",
+            {
+              q: searchQuery,
+              per_page: PAGE_SIZE,
+              page: currentPage,
+            },
+            abortController.current!
           );
-          reposCtx.populateRepos(
-            reposList || [],
-            reposResult!.data.total_count!
-          );
+          if (reposResult && reposResult!.data) {
+            let reposList = reposResult!.data.items.map(
+              (repo: any) =>
+                new Repo(
+                  repo.id,
+                  repo.name,
+                  repo.owner?.login || "",
+                  repo.description || "",
+                  addCommas(repo.stargazers_count),
+                  !!checkIsBookmarked(repo.id)
+                )
+            );
+            reposCtx.populateRepos(
+              reposList || [],
+              reposResult!.data.total_count!,
+              currentPage
+            );
 
-          setIsLoading(false);
+            setIsLoading(false);
+          }
+        } catch (error: any) {
+          showBoundary(error);
         }
-      } catch (error: any) {
-        showBoundary(error);
+      } else {
+        reposCtx.populateRepos([], 0, 0);
       }
-      reposCtx.setCurrentPage(currentPage);
-    } else {
-      reposCtx.populateRepos([], 0);
-    }
-  }, [debouncedSearchQuery]);
+    },
+    [debouncedSearchQuery]
+  );
 
   useEffect(() => {
     fetchRepos(1);

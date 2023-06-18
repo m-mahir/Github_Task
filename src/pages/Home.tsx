@@ -1,6 +1,6 @@
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Repos from "./Repos";
-import ReposContextProvider from "../context/repo-context";
+import ReposContextProvider from "../store/repo-context";
 import { Suspense, lazy } from "react";
 import Navbar from "../components/Layout/Navbar";
 import { ErrorBoundary } from "react-error-boundary";

@@ -2,7 +2,7 @@ import { useContext } from "react";
 import Repo from "../../models/Repo";
 import Card from "./Card";
 import styles from "../../styles/List.module.scss";
-import { ReposContext } from "../../context/repo-context";
+import { ReposContext } from "../../store/repo-context";
 import Pagination from "./Pagination";
 import Loader from "../Layout/Loader";
 

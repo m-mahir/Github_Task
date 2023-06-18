@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { ReposContext } from "../../context/repo-context";
+import { ReposContext } from "../../store/repo-context";
 import { PAGE_SIZE } from "../../services/constants";
 import { getPaginationRange } from "../../services/utils/pagination";
 
