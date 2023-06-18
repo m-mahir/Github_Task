@@ -1,5 +1,7 @@
+import styles from "../styles/general/EmptyResult.module.scss";
+
 type Props = {
-  keyword: string;
+  keyword?: string;
 };
 
 export default function EmptyResult({ keyword }: Props) {
@@ -8,14 +10,16 @@ export default function EmptyResult({ keyword }: Props) {
   if (keyword) {
     header = "No results found";
     subtitle = "We couldn't find what you searched for. Try searching again.";
+  } else if (keyword === undefined) {
+    header = "No bookmarks to display";
   } else {
-    header = "No data yet";
+    header = "Search results appear here";
     subtitle = "Start exploring GitHub repositories.";
   }
 
   return (
-    <div className="pt-5 h-100 text-center text-secondary">
-      <h1 className="font-weight-bold">{header}</h1>
+    <div className={styles.wrapper}>
+      <h1>{header}</h1>
       <h2>{subtitle}</h2>
     </div>
   );

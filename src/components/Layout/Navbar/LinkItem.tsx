@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import styles from "../../../styles/Navbar/LinkItem.module.scss";
+import styles from "../../../styles/navbar/LinkItem.module.scss";
 
 type Props = {
   route: string;

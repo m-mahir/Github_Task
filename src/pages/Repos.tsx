@@ -41,7 +41,6 @@ export default function Repos() {
         },
         abortController.current!
       );
-      console.log(reposResult);
       if (reposResult && reposResult!.data) {
         let reposList = reposResult!.data.items.map(
           (repo: any) =>

@@ -1,0 +1,13 @@
+.wrapper {
+    color: lightgray;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    h1 {
+        font-weight: bold;
+    }
+}
