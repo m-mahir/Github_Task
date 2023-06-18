@@ -21,17 +21,24 @@
 
 }
 
-.wrapper {
-  position:relative;
-}
-
-.icon {
-  height: 2rem;
-  width: 2rem;
-  padding-top: 3px;
+@mixin input-icon {
   position: absolute;
-  box-sizing:border-box;
   top:50%;
-  left: 60px;
   transform: translateY(-50%);
 }
+
+.wrapper {
+  position:relative;
+
+  .icon {
+    @include input-icon;
+    left: 3.75rem;
+  }
+  
+  .closeIcon {
+    @include input-icon;
+    right: 4.5rem;
+    cursor: pointer;
+  }
+}
+
