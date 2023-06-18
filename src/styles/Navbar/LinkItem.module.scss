@@ -11,11 +11,11 @@
     cursor: pointer;
     
     &:hover {
-        color: $primary_color_light;
+        color: $primary_color_hover;
     }
 
     &.active {
-        background-color: $primary_color_light;
+        background-color: $primary_color_active;
         color: white;
     }
 }

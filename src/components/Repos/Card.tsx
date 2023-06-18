@@ -39,7 +39,7 @@ export default function Card({ repo, onPageChange }: Props) {
           {repo.owner} <BiUser className={styles.icon} />
         </span>
       </div>
-      <div className={styles.desc}>{repo.description}</div>
+      <div>{repo.description}</div>
       <div className={styles.footer}>
         <span className={styles.rate}>
           {repo.starsCount}

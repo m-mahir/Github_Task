@@ -29,7 +29,7 @@ export default function Pagination({ onPageChange }: Props) {
 
   return (
     <ul
-      className="pagination pagination-md justify-content-center"
+      className="pagination pagination-md justify-content-center mb-4"
       role="navigation"
       aria-label="Pagination"
     >
