@@ -7,6 +7,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import ErrorFallback from "../components/ErrorFallback";
 import Loader from "../components/Layout/Loader";
 import styles from "../styles/general/Global.module.scss";
+import PageNotFound from "../components/PageNotFound";
 
 const Bookmarks = lazy(() => import("./Bookmarks"));
 
@@ -29,6 +30,7 @@ export default function Home() {
                 element={<Bookmarks />}
                 aria-label="Bookmarks"
               />
+              <Route path="*" element={<PageNotFound />} />
             </Routes>
           </Suspense>
         </ErrorBoundary>

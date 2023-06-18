@@ -3,8 +3,12 @@
 
 .content {
     @include center-page-content;
-    gap: 1.5rem;
-    color: grey;
+    color: gray;
+
+    p {
+        font-size: 6rem;
+        font-weight: bold;
+    }
 
     .button {
         padding: 10px;
