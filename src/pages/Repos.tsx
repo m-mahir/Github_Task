@@ -93,11 +93,7 @@ export default function Repos() {
         />
       </div>
 
-      {isLoading ? (
-        <Loader />
-      ) : (
-        reposCtx.repos.length > 0 && <List onPageChange={fetchData} />
-      )}
+      <List onPageChange={fetchData} isLoading={isLoading} />
     </>
   );
 }

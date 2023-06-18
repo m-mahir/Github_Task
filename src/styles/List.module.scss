@@ -1,23 +1,25 @@
 .grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    // grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 25px;
     justify-items: center;
-    margin-bottom: 25px;
+    margin-top: 20px;
+    margin-bottom: 50px;
 }
 
 .wrapper     {
     margin: 15px 20px 0;
 }
 
-@media only screen and (max-width: 1300px) {
-    .wrapper {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
+// @media only screen and (max-width: 1300px) {
+//     .grid {
+//         grid-template-columns: repeat(2, 1fr);
+//     }
+// }
 
-  @media only screen and (max-width: 960px) {
-    .wrapper {
+@media only screen and (max-width: 960px) {
+    .grid {
         grid-template-columns:  1fr;
     }
 }

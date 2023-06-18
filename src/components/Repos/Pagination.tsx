@@ -33,10 +33,10 @@ export default function Pagination({ onPageChange }: Props) {
   };
 
   return (
-    <ul className="pagination pagination-md justify-content-end">
+    <ul className="pagination pagination-md justify-content-center">
       <li className="page-item">
         <span
-          className="page-link"
+          className="page-link text-dark"
           onClick={() => pageChangeHandler("&laquo;")}
         >
           &laquo;
@@ -44,7 +44,7 @@ export default function Pagination({ onPageChange }: Props) {
       </li>
       <li className="page-item">
         <span
-          className="page-link"
+          className="page-link text-dark"
           onClick={() => pageChangeHandler("&lsaquo;")}
         >
           &lsaquo;
@@ -57,14 +57,19 @@ export default function Pagination({ onPageChange }: Props) {
             value === reposCtx.currentPage ? "active" : ""
           }`}
         >
-          <span onClick={() => pageChangeHandler(value)} className="page-link">
+          <span
+            className={`page-link ${
+              value === reposCtx.currentPage ? "bg-dark border-dark" : "text-dark"
+            }`}
+            onClick={() => pageChangeHandler(value)}
+          >
             {value}
           </span>
         </li>
       ))}
       <li className="page-item">
         <span
-          className="page-link"
+          className="page-link text-dark"
           onClick={() => pageChangeHandler("&rsaquo;")}
         >
           &rsaquo;
@@ -72,7 +77,7 @@ export default function Pagination({ onPageChange }: Props) {
       </li>
       <li className="page-item">
         <span
-          className="page-link"
+          className="page-link text-dark"
           onClick={() => pageChangeHandler("&raquo;")}
         >
           &raquo;

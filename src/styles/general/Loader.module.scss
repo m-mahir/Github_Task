@@ -1,13 +1,21 @@
 .skeleton {
-    margin: 20px;
+    margin: 0 10px;
     div {
-        height: 2rem;
+        height: 1.5rem;
         background-color: rgb(227, 227, 227);
-        margin: 0.75rem auto;
+        margin: 0.75rem 0;
         border-radius: 0.25rem;
         width: 100%;
-    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    .w70 {
+        width: 70%;
+    }
+    
+    .w50 {
+        width: 50%;
+    }
 }
 
 @keyframes pulse {
