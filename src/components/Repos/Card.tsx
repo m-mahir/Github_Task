@@ -1,9 +1,9 @@
 import { useContext } from "react";
-import { BiLike, BiUser } from "react-icons/bi";
+import { BiStar, BiUser } from "react-icons/bi";
 import Repo from "../../models/Repo";
 import styles from "../../styles/Card.module.scss";
 import { IconContext } from "react-icons/lib";
-import { FaRegStar, FaStar } from "react-icons/fa";
+import { BsBookmarkStar, BsBookmarkStarFill } from "react-icons/bs";
 import { ReposContext } from "../../store/repo-context";
 import { PAGE_SIZE } from "../../services/constants";
 import { useLocation } from "react-router-dom";
@@ -36,14 +36,14 @@ export default function Card({ repo, onPageChange }: Props) {
       <div className={styles.header}>
         <span className={styles.title}>{repo.name}</span>
         <span className={styles.owner}>
-          {repo.owner} <BiUser className={styles.icon} />
+          <BiUser className={styles.icon} /> {repo.owner}
         </span>
       </div>
       <div>{repo.description}</div>
       <div className={styles.footer}>
         <span className={styles.rate}>
+          <BiStar className={styles.icon} />
           {repo.starsCount}
-          <BiLike className={styles.icon} />
         </span>
         <span>
           <IconContext.Provider
@@ -54,9 +54,9 @@ export default function Card({ repo, onPageChange }: Props) {
             }}
           >
             {repo.isBookmarked ? (
-              <FaStar onClick={unfavouriteRepo} />
+              <BsBookmarkStarFill onClick={unfavouriteRepo} />
             ) : (
-              <FaRegStar
+              <BsBookmarkStar
                 onClick={() => reposCtx.favouriteRepo(repo.id, true)}
               />
             )}
