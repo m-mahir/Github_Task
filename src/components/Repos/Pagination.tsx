@@ -10,17 +10,19 @@ interface Props {
 export default function Pagination({ onPageChange }: Props) {
   const reposCtx = useContext(ReposContext)!;
 
-  let pagesCount = Math.ceil(reposCtx.numberOfRepos / PAGE_SIZE);
+  const pagesCount = Math.ceil(reposCtx.numberOfRepos / PAGE_SIZE);
+  const isFirstPage = reposCtx.currentPage === 1;
+  const isLastPage = reposCtx.currentPage === pagesCount;
 
-  let array = getPaginationRange(pagesCount, reposCtx.currentPage);
+  const array = getPaginationRange(pagesCount, reposCtx.currentPage);
 
   const pageChangeHandler = (value: number | string) => {
     let page = 0;
     if (value === "&laquo;" || value === "... ") page = 1;
     else if (value === "&lsaquo;") {
-      if (reposCtx.currentPage !== 1) page = reposCtx.currentPage - 1;
+      if (!isFirstPage) page = reposCtx.currentPage - 1;
     } else if (value === "&rsaquo;") {
-      if (reposCtx.currentPage !== pagesCount) page = reposCtx.currentPage + 1;
+      if (!isLastPage) page = reposCtx.currentPage + 1;
     } else if (value === "&raquo;" || value === " ...") page = pagesCount;
     else page = +value;
 
@@ -33,21 +35,17 @@ export default function Pagination({ onPageChange }: Props) {
       role="navigation"
       aria-label="Pagination"
     >
-      <li className="page-item" role="button">
+      <li className="page-item" role={isFirstPage ? "" : "button"}>
         <span
-          className={`page-link ${
-            reposCtx.currentPage === 1 ? "disabled" : "text-dark"
-          }`}
+          className={`page-link ${isFirstPage ? "disabled" : "text-dark"}`}
           onClick={() => pageChangeHandler("&laquo;")}
         >
           &laquo;
         </span>
       </li>
-      <li className="page-item" role="button">
+      <li className="page-item" role={isFirstPage ? "" : "button"}>
         <span
-          className={`page-link ${
-            reposCtx.currentPage === 1 ? "disabled" : "text-dark"
-          }`}
+          className={`page-link ${isFirstPage ? "disabled" : "text-dark"}`}
           onClick={() => pageChangeHandler("&lsaquo;")}
         >
           &lsaquo;
@@ -73,21 +71,17 @@ export default function Pagination({ onPageChange }: Props) {
           </span>
         </li>
       ))}
-      <li className="page-item" role="button">
+      <li className="page-item" role={isLastPage ? "" : "button"}>
         <span
-          className={`page-link ${
-            reposCtx.currentPage === pagesCount ? "disabled" : "text-dark"
-          }`}
+          className={`page-link ${isLastPage ? "disabled" : "text-dark"}`}
           onClick={() => pageChangeHandler("&rsaquo;")}
         >
           &rsaquo;
         </span>
       </li>
-      <li className="page-item" role="button">
+      <li className="page-item" role={isLastPage ? "" : "button"}>
         <span
-          className={`page-link ${
-            reposCtx.currentPage === pagesCount ? "disabled" : "text-dark"
-          }`}
+          className={`page-link ${isLastPage ? "disabled" : "text-dark"}`}
           onClick={() => pageChangeHandler("&raquo;")}
         >
           &raquo;
