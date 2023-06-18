@@ -33,7 +33,7 @@ export default function Pagination({ onPageChange }: Props) {
       role="navigation"
       aria-label="Pagination"
     >
-      <li className="page-item">
+      <li className="page-item" role="button">
         <span
           className={`page-link ${
             reposCtx.currentPage === 1 ? "disabled" : "text-dark"
@@ -43,7 +43,7 @@ export default function Pagination({ onPageChange }: Props) {
           &laquo;
         </span>
       </li>
-      <li className="page-item">
+      <li className="page-item" role="button">
         <span
           className={`page-link ${
             reposCtx.currentPage === 1 ? "disabled" : "text-dark"
@@ -56,6 +56,7 @@ export default function Pagination({ onPageChange }: Props) {
       {array.map((value) => (
         <li
           key={value}
+          role="button"
           className={`page-item ${
             value === reposCtx.currentPage ? "active" : ""
           }`}
@@ -72,7 +73,7 @@ export default function Pagination({ onPageChange }: Props) {
           </span>
         </li>
       ))}
-      <li className="page-item">
+      <li className="page-item" role="button">
         <span
           className={`page-link ${
             reposCtx.currentPage === pagesCount ? "disabled" : "text-dark"
@@ -82,7 +83,7 @@ export default function Pagination({ onPageChange }: Props) {
           &rsaquo;
         </span>
       </li>
-      <li className="page-item">
+      <li className="page-item" role="button">
         <span
           className={`page-link ${
             reposCtx.currentPage === pagesCount ? "disabled" : "text-dark"
