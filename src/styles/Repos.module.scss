@@ -1,11 +1,11 @@
 .search {
-    width: calc(100vw - 35px);
+    width: calc(100vw - 100px);
     padding: 8px;
-    margin: 8px;
+    margin: 8px 2.5rem;
     height: 50px;
     box-sizing:border-box;
     border-radius: 10px;
-    padding-left: 2.8rem;
+    padding-left: 3rem;
     font-size: 1.25rem;
     border: solid 1.5px #D3D3D3;
     -webkit-transition: 1s; /* Safari */
@@ -28,10 +28,10 @@
 .icon {
   height: 2rem;
   width: 2rem;
-  padding: 3px;
+  padding-top: 3px;
   position: absolute;
   box-sizing:border-box;
   top:50%;
-  left:25px;
+  left: 60px;
   transform: translateY(-50%);
 }

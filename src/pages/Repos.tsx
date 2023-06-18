@@ -14,8 +14,8 @@ import { FaSearch } from "react-icons/fa";
 import { PAGE_SIZE } from "../services/constants";
 import List from "../components/Repos/List";
 import { useErrorBoundary } from "react-error-boundary";
-import Loader from "../components/Layout/Loader";
 import { addCommas } from "../services/utils/numberFormatter";
+import EmptyResult from "../components/EmptyResult";
 
 export default function Repos() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -92,8 +92,11 @@ export default function Repos() {
           className={styles.search}
         />
       </div>
-
-      <List onPageChange={fetchData} isLoading={isLoading} />
+      {!isLoading && reposCtx.repos.length === 0 ? (
+        <EmptyResult keyword={keyword} />
+      ) : (
+        <List onPageChange={fetchData} isLoading={isLoading} />
+      )}
     </>
   );
 }
