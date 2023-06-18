@@ -7,11 +7,12 @@
     background-color: $primary_color;
 
     .title {
-        height: 3rem;
+        font-size: 18px;
+        font-weight: bold;
+        height: 3.2rem;
         display: flex;
         align-items: center;
         color: white;
-        font-weight: bold;
     }
 
     .links {
@@ -23,7 +24,7 @@
     }
 
     li {
-        height: 3rem;
+        height: 3.2rem;
         padding: 0 1rem;
         cursor: pointer;
         font-weight: bold;
