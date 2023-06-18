@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useContext } from "react";
+import { useState, useEffect, useRef, useContext, useCallback } from "react";
 import { get } from "../middleware/octokit";
 import Repo from "../models/Repo";
 import { checkIsBookmarked } from "../middleware/localStorage";
@@ -26,7 +26,7 @@ export default function Repos() {
 
   const debouncedSearchQuery = useDebounce(searchQuery, 500);
 
-  const fetchRepos = async (currentPage: number) => {
+  const fetchRepos = useCallback(async (currentPage: number) => {
     if (debouncedSearchQuery) {
       if (abortController.current) abortController.current.abort();
       abortController.current = new AbortController();
@@ -68,7 +68,7 @@ export default function Repos() {
     } else {
       reposCtx.populateRepos([], 0);
     }
-  };
+  }, [debouncedSearchQuery]);
 
   useEffect(() => {
     fetchRepos(1);

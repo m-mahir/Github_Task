@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useCallback } from "react";
 import { getAllBookmarks } from "../middleware/localStorage";
 import { ReposContext } from "../context/repo-context";
 import { PAGE_SIZE } from "../services/constants";
@@ -8,7 +8,7 @@ import EmptyResult from "../components/Repos/EmptyResult";
 export default function Bookmarks() {
   const reposCtx = useContext(ReposContext)!;
 
-  const fetchRepos = (currentPage: number) => {
+  const fetchRepos = useCallback((currentPage: number) => {
     const bookmarks = getAllBookmarks();
     const startIndex = (currentPage - 1) * PAGE_SIZE;
     const endIndex = startIndex + PAGE_SIZE;
@@ -17,7 +17,7 @@ export default function Bookmarks() {
       bookmarks.length
     );
     reposCtx.setCurrentPage(currentPage);
-  };
+  }, []);
 
   useEffect(() => {
     fetchRepos(1);
