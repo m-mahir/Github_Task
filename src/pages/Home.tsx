@@ -23,8 +23,12 @@ export default function Home() {
         >
           <Suspense fallback={<Loader />}>
             <Routes>
-              <Route path="/" element={<Repos />} />
-              <Route path="/bookmarks" element={<Bookmarks />} />
+              <Route path="/" element={<Repos />} aria-label="Repositories" />
+              <Route
+                path="/bookmarks"
+                element={<Bookmarks />}
+                aria-label="Bookmarks"
+              />
             </Routes>
           </Suspense>
         </ErrorBoundary>

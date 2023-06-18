@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { BiLike, BiUser } from "react-icons/bi";
-import Repo from "../../models/repo";
+import Repo from "../../models/Repo";
 import styles from "../../styles/Card.module.scss";
 import { IconContext } from "react-icons/lib";
 import { FaRegStar, FaStar } from "react-icons/fa";

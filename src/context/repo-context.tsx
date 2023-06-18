@@ -1,5 +1,5 @@
 import React, { useState, createContext } from "react";
-import Repo from "../models/repo";
+import Repo from "../models/Repo";
 import {
   addToLocalStorage,
   removeFromLocalStorage,

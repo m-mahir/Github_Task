@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import Repo from "../../models/repo";
+import Repo from "../../models/Repo";
 import Card from "./Card";
 import styles from "../../styles/List.module.scss";
 import { ReposContext } from "../../context/repo-context";

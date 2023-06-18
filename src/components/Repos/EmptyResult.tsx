@@ -1,4 +1,4 @@
-import styles from "../styles/general/EmptyResult.module.scss";
+import styles from "../../styles/general/EmptyResult.module.scss";
 
 type Props = {
   keyword?: string;

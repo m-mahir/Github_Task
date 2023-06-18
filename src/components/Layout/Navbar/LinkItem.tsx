@@ -9,7 +9,12 @@ type Props = {
 export default function LinkItem({ route, title }: Props) {
   return (
     <li>
-      <NavLink className={styles.link} to={route}>
+      <NavLink
+        className={({ isActive }) =>
+          `${styles.link} ${isActive ? styles.active : ""}`
+        }
+        to={route}
+      >
         {title}
       </NavLink>
     </li>

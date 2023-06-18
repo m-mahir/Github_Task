@@ -7,11 +7,11 @@
     margin-bottom: 50px;
 }
 
-.wrapper     {
+.wrapper {
     margin: 15px 20px 0;
 }
 
-@media only screen and (max-width: 960px) {
+@media only screen and (max-width: 990px) {
     .grid {
         grid-template-columns:  1fr;
     }

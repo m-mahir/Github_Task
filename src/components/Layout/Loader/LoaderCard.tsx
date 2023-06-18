@@ -1,5 +1,5 @@
-import cardStyles from "../../styles/Card.module.scss";
-import styles from "../../styles/general/Loader.module.scss";
+import cardStyles from "../../../styles/Card.module.scss";
+import styles from "../../../styles/general/Loader.module.scss";
 
 export default function LoaderCard() {
   return (

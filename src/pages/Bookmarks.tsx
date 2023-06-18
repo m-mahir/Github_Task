@@ -3,7 +3,7 @@ import { getAllBookmarks } from "../middleware/localStorage";
 import { ReposContext } from "../context/repo-context";
 import { PAGE_SIZE } from "../services/constants";
 import List from "../components/Repos/List";
-import EmptyResult from "../components/EmptyResult";
+import EmptyResult from "../components/Repos/EmptyResult";
 
 export default function Bookmarks() {
   const reposCtx = useContext(ReposContext)!;

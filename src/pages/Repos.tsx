@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useContext } from "react";
 import { get } from "../middleware/octokit";
-import Repo from "../models/repo";
+import Repo from "../models/Repo";
 import { checkIsBookmarked } from "../middleware/localStorage";
 import { ReposContext } from "../context/repo-context";
 import styles from "../styles/Repos.module.scss";
@@ -10,13 +10,15 @@ import { PAGE_SIZE } from "../services/constants";
 import List from "../components/Repos/List";
 import { useErrorBoundary } from "react-error-boundary";
 import { addCommas } from "../services/utils/numberFormatter";
-import EmptyResult from "../components/EmptyResult";
+import EmptyResult from "../components/Repos/EmptyResult";
 import useDebounce from "../hooks/useDebounce";
 
 export default function Repos() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState("");
   const abortController = useRef<AbortController | null>(null);
+
+  const clearSearch = () => setSearchQuery("");
 
   const reposCtx = useContext(ReposContext)!;
 
@@ -68,8 +70,6 @@ export default function Repos() {
     }
   };
 
-  const clearSearch = () => setSearchQuery("");
-
   useEffect(() => {
     fetchRepos(1);
   }, [debouncedSearchQuery]);
@@ -89,7 +89,12 @@ export default function Repos() {
         />
         {searchQuery && (
           <div className={styles.closeIcon}>
-            <IoCloseCircle className={styles.x} size="30" color="lightgrey" onClick={clearSearch} />
+            <IoCloseCircle
+              className={styles.x}
+              size="30"
+              color="lightgrey"
+              onClick={clearSearch}
+            />
           </div>
         )}
       </div>

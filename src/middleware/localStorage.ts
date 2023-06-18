@@ -1,4 +1,4 @@
-import Repo from "../models/repo";
+import Repo from "../models/Repo";
 
 const BOOKMARKS_KEY = "Bookmarks";
 
