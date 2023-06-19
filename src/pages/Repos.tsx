@@ -15,9 +15,10 @@ import useDebounce from "../hooks/useDebounce";
 
 type Props = {
   page: number;
+  setPage: (pageNum: number) => void;
 };
 
-export default function Repos({ page }: Props) {
+export default function Repos({ page, setPage }: Props) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState("");
   const abortController = useRef<AbortController | null>(null);
@@ -76,6 +77,10 @@ export default function Repos({ page }: Props) {
   useEffect(() => {
     fetchRepos();
   }, [debouncedSearchQuery, page]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [debouncedSearchQuery]);
 
   return (
     <>
