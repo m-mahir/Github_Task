@@ -20,18 +20,23 @@ export default function Bookmarks({ page, setPage }: Props) {
       reposCtx.numberOfRepos % PAGE_SIZE === 1
     ) {
       setPage(page - 1);
-    }
+    } else loadBookmarks();
   };
 
-  useEffect(() => {
+  const loadBookmarks = () => {
     const bookmarks = getAllBookmarks();
 
     const startIndex = (page - 1) * PAGE_SIZE;
     const endIndex = startIndex + PAGE_SIZE;
+
     reposCtx.populateRepos(
       bookmarks.slice(startIndex, endIndex),
       bookmarks.length
     );
+  };
+
+  useEffect(() => {
+    loadBookmarks();
   }, [page]);
 
   return reposCtx.repos.length === 0 ? (
