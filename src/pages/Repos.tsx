@@ -16,9 +16,10 @@ import useDebounce from "../hooks/useDebounce";
 type Props = {
   page: number;
   setPage: (pageNum: number) => void;
+  setShowPagination: (show: boolean) => void;
 };
 
-export default function Repos({ page, setPage }: Props) {
+export default function Repos({ page, setPage, setShowPagination }: Props) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState("");
   const abortController = useRef<AbortController | null>(null);
@@ -65,6 +66,7 @@ export default function Repos({ page, setPage }: Props) {
           );
 
           setIsLoading(false);
+          setShowPagination(true);
         }
       } catch (error: any) {
         showBoundary(error);
@@ -75,6 +77,7 @@ export default function Repos({ page, setPage }: Props) {
   }, [debouncedSearchQuery, page]);
 
   useEffect(() => {
+    setShowPagination(false);
     fetchRepos();
   }, [debouncedSearchQuery, page]);
 
