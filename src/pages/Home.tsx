@@ -8,8 +8,12 @@ import ErrorFallback from "../components/ErrorFallback";
 import Loader from "../components/Layout/Loader";
 import styles from "../styles/general/Global.module.scss";
 import PageNotFound from "../components/PageNotFound";
+import withPagination from "../hoc/withPagination";
 
 const Bookmarks = lazy(() => import("./Bookmarks"));
+
+const ReposWithPagination = withPagination(Repos);
+const BookmarksWithPagination = withPagination(Bookmarks);
 
 export default function Home() {
   const navigate = useNavigate();
@@ -24,10 +28,14 @@ export default function Home() {
         >
           <Suspense fallback={<Loader />}>
             <Routes>
-              <Route path="/" element={<Repos />} aria-label="Repositories" />
+              <Route
+                path="/"
+                element={<ReposWithPagination />}
+                aria-label="Repositories"
+              />
               <Route
                 path="/bookmarks"
-                element={<Bookmarks />}
+                element={<BookmarksWithPagination />}
                 aria-label="Bookmarks"
               />
               <Route path="*" element={<PageNotFound />} />

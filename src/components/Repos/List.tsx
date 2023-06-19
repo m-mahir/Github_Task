@@ -3,15 +3,14 @@ import Repo from "../../models/Repo";
 import Card from "./Card";
 import styles from "../../styles/List.module.scss";
 import { ReposContext } from "../../store/repo-context";
-import Pagination from "./Pagination";
 import Loader from "../Layout/Loader";
 
 interface Props {
-  onPageChange: (pageNum: number) => void;
+  checkPage?: () => void;
   isLoading?: boolean;
 }
 
-const List = ({ onPageChange, isLoading }: Props) => {
+const List = ({ checkPage, isLoading }: Props) => {
   const reposCtx = useContext(ReposContext)!;
 
   return isLoading ? (
@@ -20,10 +19,9 @@ const List = ({ onPageChange, isLoading }: Props) => {
     <div className={styles.wrapper}>
       <div className={styles.grid}>
         {reposCtx.repos.map((repo: Repo) => (
-          <Card key={repo.id} repo={repo} onPageChange={onPageChange} />
+          <Card key={repo.id} repo={repo} checkPage={checkPage} />
         ))}
       </div>
-      <Pagination onPageChange={onPageChange} />
     </div>
   ) : (
     <></>

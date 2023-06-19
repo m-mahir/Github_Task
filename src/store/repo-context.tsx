@@ -10,8 +10,7 @@ import { API_RESULTS_LIMIT } from "../config";
 type RepoContextType = {
   repos: Repo[];
   numberOfRepos: number;
-  currentPage: number;
-  populateRepos: (repos: Repo[], totalPages: number, page: number) => void;
+  populateRepos: (repos: Repo[], totalRepos: number) => void;
   favouriteRepo: (id: number, isFavourite: boolean) => void;
 };
 
@@ -22,22 +21,19 @@ type Props = {
 export const ReposContext = createContext<RepoContextType>({
   repos: [],
   numberOfRepos: 0,
-  currentPage: 0,
-  populateRepos: (repos: Repo[], totalPages: number, page: number) => {},
+  populateRepos: (repos: Repo[], totalRepos: number) => {},
   favouriteRepo: (id: number, isFavourite: boolean) => {},
 });
 
 const ReposContextProvider = ({ children }: Props) => {
   const [repos, setRepos] = useState<Repo[]>([]);
   const [numberOfRepos, setNumberOfRepos] = useState<number>(0);
-  const [currentPage, setCurrentPage] = useState<number>(0);
 
   const location = useLocation();
 
-  const populateRepos = (repos: Repo[], reposCount: number, page: number) => {
+  const populateRepos = (repos: Repo[], reposCount: number) => {
     setRepos(repos);
     setNumberOfRepos(Math.min(reposCount, API_RESULTS_LIMIT));
-    setCurrentPage(page);
   };
 
   const toogleBookmark = (id: number) => {
@@ -64,7 +60,6 @@ const ReposContextProvider = ({ children }: Props) => {
   const contextValue: RepoContextType = {
     repos,
     numberOfRepos,
-    currentPage,
     populateRepos,
     favouriteRepo,
   };

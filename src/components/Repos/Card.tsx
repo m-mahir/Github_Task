@@ -5,15 +5,14 @@ import styles from "../../styles/Card.module.scss";
 import { IconContext } from "react-icons/lib";
 import { BsBookmarkStar, BsBookmarkStarFill } from "react-icons/bs";
 import { ReposContext } from "../../store/repo-context";
-import { PAGE_SIZE } from "../../services/constants";
 import { useLocation } from "react-router-dom";
 
 type Props = {
   repo: Repo;
-  onPageChange: (pageNum: number) => void;
+  checkPage?: () => void;
 };
 
-export default function Card({ repo, onPageChange }: Props) {
+export default function Card({ repo, checkPage }: Props) {
   const reposCtx = useContext(ReposContext)!;
 
   const location = useLocation();
@@ -21,13 +20,7 @@ export default function Card({ repo, onPageChange }: Props) {
   const unfavouriteRepo = () => {
     reposCtx.favouriteRepo(repo.id, false);
     if (location.pathname === "/bookmarks") {
-      if (
-        reposCtx.currentPage ===
-          Math.ceil(reposCtx.numberOfRepos / PAGE_SIZE) &&
-        reposCtx.numberOfRepos % PAGE_SIZE === 1
-      )
-        onPageChange(reposCtx.currentPage - 1);
-      else onPageChange(reposCtx.currentPage);
+      checkPage!();
     }
   };
 

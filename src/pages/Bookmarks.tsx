@@ -1,31 +1,42 @@
-import { useContext, useEffect, useCallback } from "react";
+import { useContext, useEffect } from "react";
 import { getAllBookmarks } from "../middleware/localStorage";
 import { ReposContext } from "../store/repo-context";
 import { PAGE_SIZE } from "../services/constants";
 import List from "../components/Repos/List";
 import EmptyResult from "../components/Repos/EmptyResult";
 
-export default function Bookmarks() {
+type Props = {
+  page: number;
+  setPage: (pageNum: number) => void;
+};
+
+export default function Bookmarks({ page, setPage }: Props) {
   const reposCtx = useContext(ReposContext)!;
 
-  const fetchRepos = useCallback((currentPage: number) => {
+  const checkUnFavouriteLastInPage = () => {
+    if (
+      page !== 1 &&
+      page === Math.ceil(reposCtx.numberOfRepos / PAGE_SIZE) &&
+      reposCtx.numberOfRepos % PAGE_SIZE === 1
+    ) {
+      setPage(page - 1);
+    }
+  };
+
+  useEffect(() => {
     const bookmarks = getAllBookmarks();
-    const startIndex = (currentPage - 1) * PAGE_SIZE;
+
+    const startIndex = (page - 1) * PAGE_SIZE;
     const endIndex = startIndex + PAGE_SIZE;
     reposCtx.populateRepos(
       bookmarks.slice(startIndex, endIndex),
-      bookmarks.length,
-      currentPage
+      bookmarks.length
     );
-  }, []);
-
-  useEffect(() => {
-    fetchRepos(1);
-  }, []);
+  }, [page]);
 
   return reposCtx.repos.length === 0 ? (
     <EmptyResult />
   ) : (
-    <List onPageChange={fetchRepos} />
+    <List checkPage={checkUnFavouriteLastInPage} />
   );
 }

@@ -4,29 +4,30 @@ import { PAGE_SIZE } from "../../services/constants";
 import { getPaginationRange } from "../../services/utils/pagination";
 
 interface Props {
-  onPageChange: (pageNum: number) => void;
+  page: number;
+  setPage: (pageNum: number) => void;
 }
 
-export default function Pagination({ onPageChange }: Props) {
+export default function Pagination({ page, setPage }: Props) {
   const reposCtx = useContext(ReposContext)!;
 
   const pagesCount = Math.ceil(reposCtx.numberOfRepos / PAGE_SIZE);
-  const isFirstPage = reposCtx.currentPage === 1;
-  const isLastPage = reposCtx.currentPage === pagesCount;
+  const isFirstPage = page === 1;
+  const isLastPage = page === pagesCount;
 
-  const array = getPaginationRange(pagesCount, reposCtx.currentPage);
+  const array = getPaginationRange(pagesCount, page);
 
   const pageChangeHandler = (value: number | string) => {
     let page = 0;
     if (value === "&laquo;" || value === "... ") page = 1;
     else if (value === "&lsaquo;") {
-      if (!isFirstPage) page = reposCtx.currentPage - 1;
+      if (!isFirstPage) page = page - 1;
     } else if (value === "&rsaquo;") {
-      if (!isLastPage) page = reposCtx.currentPage + 1;
+      if (!isLastPage) page = page + 1;
     } else if (value === "&raquo;" || value === " ...") page = pagesCount;
     else page = +value;
 
-    onPageChange(page);
+    setPage(page);
   };
 
   return (
@@ -59,12 +60,12 @@ export default function Pagination({ onPageChange }: Props) {
           key={value}
           role="button"
           className={`page-item ${
-            value === reposCtx.currentPage ? "active" : ""
+            value === page ? "active" : ""
           }`}
         >
           <span
             className={`page-link ${
-              value === reposCtx.currentPage
+              value === page
                 ? "bg-dark border-dark"
                 : "text-dark"
             }`}

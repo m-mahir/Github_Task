@@ -13,7 +13,11 @@ import { addCommas } from "../services/utils/numberFormatter";
 import EmptyResult from "../components/Repos/EmptyResult";
 import useDebounce from "../hooks/useDebounce";
 
-export default function Repos() {
+type Props = {
+  page: number;
+};
+
+export default function Repos({ page }: Props) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState("");
   const abortController = useRef<AbortController | null>(null);
@@ -26,56 +30,52 @@ export default function Repos() {
 
   const debouncedSearchQuery = useDebounce(searchQuery, 500);
 
-  const fetchRepos = useCallback(
-    async (currentPage: number) => {
-      if (debouncedSearchQuery) {
-        if (abortController.current) abortController.current.abort();
-        abortController.current = new AbortController();
-        try {
-          setIsLoading(true);
+  const fetchRepos = useCallback(async () => {
+    if (debouncedSearchQuery) {
+      if (abortController.current) abortController.current.abort();
+      abortController.current = new AbortController();
+      try {
+        setIsLoading(true);
 
-          const reposResult = await get(
-            "/search/repositories",
-            {
-              q: searchQuery,
-              per_page: PAGE_SIZE,
-              page: currentPage,
-            },
-            abortController.current!
+        const reposResult = await get(
+          "/search/repositories",
+          {
+            q: searchQuery,
+            per_page: PAGE_SIZE,
+            page,
+          },
+          abortController.current!
+        );
+        if (reposResult && reposResult!.data) {
+          let reposList = reposResult!.data.items.map(
+            (repo: any) =>
+              new Repo(
+                repo.id,
+                repo.name,
+                repo.owner?.login || "",
+                repo.description || "",
+                addCommas(repo.stargazers_count),
+                !!checkIsBookmarked(repo.id)
+              )
           );
-          if (reposResult && reposResult!.data) {
-            let reposList = reposResult!.data.items.map(
-              (repo: any) =>
-                new Repo(
-                  repo.id,
-                  repo.name,
-                  repo.owner?.login || "",
-                  repo.description || "",
-                  addCommas(repo.stargazers_count),
-                  !!checkIsBookmarked(repo.id)
-                )
-            );
-            reposCtx.populateRepos(
-              reposList || [],
-              reposResult!.data.total_count!,
-              currentPage
-            );
+          reposCtx.populateRepos(
+            reposList || [],
+            reposResult!.data.total_count!
+          );
 
-            setIsLoading(false);
-          }
-        } catch (error: any) {
-          showBoundary(error);
+          setIsLoading(false);
         }
-      } else {
-        reposCtx.populateRepos([], 0, 0);
+      } catch (error: any) {
+        showBoundary(error);
       }
-    },
-    [debouncedSearchQuery]
-  );
+    } else {
+      reposCtx.populateRepos([], 0);
+    }
+  }, [debouncedSearchQuery, page]);
 
   useEffect(() => {
-    fetchRepos(1);
-  }, [debouncedSearchQuery]);
+    fetchRepos();
+  }, [debouncedSearchQuery, page]);
 
   return (
     <>
@@ -104,7 +104,7 @@ export default function Repos() {
       {!isLoading && reposCtx.repos.length === 0 ? (
         <EmptyResult keyword={searchQuery} />
       ) : (
-        <List onPageChange={fetchRepos} isLoading={isLoading} />
+        <List isLoading={isLoading} />
       )}
     </>
   );
