@@ -18,16 +18,16 @@ export default function Pagination({ page, setPage }: Props) {
   const array = getPaginationRange(pagesCount, page);
 
   const pageChangeHandler = (value: number | string) => {
-    let page = 0;
-    if (value === "&laquo;" || value === "... ") page = 1;
+    let newPage = page;
+    if (value === "&laquo;" || value === "... ") newPage = 1;
     else if (value === "&lsaquo;") {
-      if (!isFirstPage) page = page - 1;
+      if (!isFirstPage) newPage = newPage - 1;
     } else if (value === "&rsaquo;") {
-      if (!isLastPage) page = page + 1;
-    } else if (value === "&raquo;" || value === " ...") page = pagesCount;
-    else page = +value;
+      if (!isLastPage) newPage = newPage + 1;
+    } else if (value === "&raquo;" || value === " ...") newPage = pagesCount;
+    else newPage = +value;
 
-    setPage(page);
+    setPage(newPage);
   };
 
   return (
