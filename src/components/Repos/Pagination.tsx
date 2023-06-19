@@ -35,7 +35,10 @@ export default function Pagination({ onPageChange }: Props) {
       role="navigation"
       aria-label="Pagination"
     >
-      <li className="page-item" role={isFirstPage ? "" : "button"}>
+      <li
+        className="page-item d-none d-sm-block"
+        role={isFirstPage ? "" : "button"}
+      >
         <span
           className={`page-link ${isFirstPage ? "disabled" : "text-dark"}`}
           onClick={() => pageChangeHandler("&laquo;")}
@@ -79,7 +82,10 @@ export default function Pagination({ onPageChange }: Props) {
           &rsaquo;
         </span>
       </li>
-      <li className="page-item" role={isLastPage ? "" : "button"}>
+      <li
+        className="page-item d-none d-sm-block"
+        role={isLastPage ? "" : "button"}
+      >
         <span
           className={`page-link ${isLastPage ? "disabled" : "text-dark"}`}
           onClick={() => pageChangeHandler("&raquo;")}
