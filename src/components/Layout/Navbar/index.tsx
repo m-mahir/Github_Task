@@ -6,7 +6,7 @@ export default function Navbar() {
     <header>
       <nav>
         <div className={styles.navbar}>
-          <div className={styles.title}>GitHub Repositories</div>
+          <div className={styles.title}>GitHub Search</div>
           <ul className={styles.links}>
             <LinkItem route="/" title="Repos" />
             <LinkItem route="/bookmarks" title="Bookmarks" />

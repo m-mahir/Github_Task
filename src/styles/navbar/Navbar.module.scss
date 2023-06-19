@@ -25,8 +25,16 @@
 
     li {
         height: 3.2rem;
-        padding: 0 1rem;
+        padding: 0 .5rem;
         cursor: pointer;
         font-weight: bold;
+    }
+}
+
+@media only screen and (max-width: 420px) {
+    .navbar {
+        li {
+            padding: unset;
+        }
     }
 }
